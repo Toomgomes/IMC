@@ -1,0 +1,33 @@
+﻿@page "/pendencia"
+
+<PageTitle>Pendencia</PageTitle>
+
+<h3>Pendencia (@pendencias.Count(Pendencia => !Pendencia.IsDone))</h3>
+
+<ul>
+    @foreach (var pendencia in pendencias)
+    {
+        <li>
+            <input type="checkbox" @bind="pendencia.IsDone"/>
+            <input @bind="pendencia.Title"/>
+
+        </li>
+    }
+</ul>
+
+<input placeholder="Digite suas pendências aqui" @bind="newPendencia" />
+<button class="btn btn-primary" @onclick="AddPendencia"> Adicionar Pendencia</button>
+
+@code {
+
+    private string? newPendencia;
+    private List<PendenciaItem> pendencias =new();
+
+    private void AddPendencia(){
+        //Adicionar o método para o botão "adicionar pendencia"
+        if (!string.IsNullOrWhiteSpace(newPendencia)){
+            pendencias.Add(new PendenciaItem { Title= newPendencia});
+            newPendencia=string.Empty;
+        }
+    }
+}

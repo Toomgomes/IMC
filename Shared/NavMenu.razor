@@ -1,0 +1,77 @@
+﻿<div class="top-row ps-3 navbar navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="">IMC</a>
+        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+</div>
+
+<div class="@NavMenuCssClass nav-scrollable" @onclick="ToggleNavMenu">
+    <nav class="flex-column">
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                <span class="oi oi-home" aria-hidden="true"></span> Home
+            </NavLink>
+        </div>
+        @*  <div class="nav-item px-3">
+            <NavLink class="nav-link" href="pendencia">
+                <span class="oi oi-plus" aria-hidden="true"></span> Lista de pendências
+            </NavLink>
+        </div>  *@
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="#Índice de Massa Corporal (IMC)" @onclick="ToggleSubMenu">
+                <span class="oi oi-@Sign" aria-hidden="true"></span> IMC
+            </NavLink>
+        </div> 
+
+        @if(visible)
+        {
+            <li>
+                <ul>
+                    <div class="nav-item px-3">
+                        <NavLink class="nav-link" href="oque">
+                            <span class="oi oi-list-rich" aria-hidden="true"></span> O que é?
+                        </NavLink>
+                    </div> 
+                     <div class="nav-item px-3">
+                        <NavLink class="nav-link" href="referencia">
+                            <span class="oi oi-plus" aria-hidden="true"></span> Valor de referência
+                        </NavLink>
+                    </div> 
+                    <div class="nav-item px-3">
+                        <NavLink class="nav-link" href="imc">
+                            <span class="oi oi-plus" aria-hidden="true"></span> Calcule o seu IMC
+                        </NavLink>
+                    </div> 
+                </ul>
+            </li>
+        }
+
+         <div class="nav-item px-3">
+            <NavLink class="nav-link" href="#Contacte-nos">
+                <span class="oi oi-plus" aria-hidden="true"></span> Fale conosco
+            </NavLink>
+        </div> 
+
+    </nav>
+</div>
+
+@code {
+    private bool collapseNavMenu = true;
+    private bool visible=false;
+    private string Sign="plus";
+
+    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+
+    private void ToggleSubMenu()
+    {
+        visible=!visible;
+        Sign=visible ? "minus" : "plus";
+    }
+}

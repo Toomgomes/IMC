@@ -1,0 +1,41 @@
+@page "/imc"
+@using Microsoft.Fast.Components.FluentUI
+@* @inject IDialogService DialogService *@
+
+
+<h1>Calculadora do índice de Massa Corporal (IMC)</h1><br />
+
+<label for="altura">Altura (em metros/m)</label> 
+@* <FluentLabel Typo = "@Header" > Altura (em metros/m) </FluentLabel> *@
+<FluentNumberField @bind-Value=altura Appearance="FluentInputAppearance.Filled" Placeholder="1,62"></FluentNumberField><br />
+
+
+<label for="peso">Peso (em quilogramas/Kg)</label>
+<FluentNumberField @bind-Value=peso Appearance="FluentInputAppearance.Filled" Placeholder="72"></FluentNumberField>
+
+
+@* <button @onclick="CalcularImc">Calcular IMC</button> *@
+<FluentButton Loading="@loading" OnClick="@CalcularImcAsync" Appearance="Appearance.Accent">Loading</FluentButton><br />
+<label>O Imc é <span>@imcCalculado</span></label>
+
+@code{
+    private double altura { get; set; }
+    private double peso { get; set; }
+    private double imcCalculado { get; set; }
+    private bool loading = false;
+
+    private async Task CalcularImcAsync()
+    {
+        loading= true;
+        await Task.Delay(2000);
+        imcCalculado = peso/Math.Pow(altura, 2);
+        @* var  dialog = await DialogService.ShowSuccessAsync("The action was a success"); *@
+        loading=false;
+
+    }
+
+    private void CalcularImc()
+    {
+        //imcCalculado = peso/Math.Pow(altura, 2);
+    }
+}
